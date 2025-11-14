@@ -1,14 +1,15 @@
-﻿
+using BeeBuzz.Data.Repositories.Helpers;
+
 namespace BeeBuzz.Data
 {
-    public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _context;
         private readonly IRepositoryProvider _repositoryProvider;
         //private ILogger<DutchProductRepository> _loggerProduct;
         //private DutchProductRepository _productRepository;
 
-        public UnitOfWork(ApplicationDbContext context, IRepositoryProvider provider, ILoggerFactory loggerFactory) 
+        public UnitOfWork(ApplicationDbContext context, IRepositoryProvider provider, ILoggerFactory loggerFactory)
         {
             //_loggerOrder = new Logger<DutchOrderRepository>(loggerFactory);
             //_loggerProduct = new Logger<DutchProductRepository>(loggerFactory);
@@ -20,7 +21,7 @@ namespace BeeBuzz.Data
         {
             return _repositoryProvider.GetRepository<T>();
         }
-        
+
         private bool disposedValue;
         protected virtual void Dispose(bool disposing)
         {
@@ -40,7 +41,5 @@ namespace BeeBuzz.Data
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-
-        
     }
 }

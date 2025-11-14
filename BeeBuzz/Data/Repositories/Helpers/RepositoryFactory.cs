@@ -34,7 +34,7 @@ namespace BeeBuzz.Data.Repositories.Helpers
 
         protected virtual Func<ApplicationDbContext, object> DefaultEntityRepositoryFactory<T>() where T : class
         {
-            return dbContext => new BeeBuzzGenericGenericRepository<T>(dbContext, 
+            return dbContext => new BeeBuzzGenericGenericRepository<T>(dbContext,
                                         new Logger<BeeBuzzGenericGenericRepository<T>>(_loggerFactory));
         }
     }

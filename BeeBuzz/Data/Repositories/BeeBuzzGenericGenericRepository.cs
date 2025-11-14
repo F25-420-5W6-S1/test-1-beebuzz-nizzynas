@@ -10,7 +10,7 @@ namespace BeeBuzz.Data.Repositories
         internal readonly ApplicationDbContext _context;
         internal readonly DbSet<T> _dbSet;
 
-        public BeeBuzzGenericGenericRepository(ApplicationDbContext db, ILogger<BeeBuzzGenericGenericRepository<T>> logger) 
+        public BeeBuzzGenericGenericRepository(ApplicationDbContext db, ILogger<BeeBuzzGenericGenericRepository<T>> logger)
         {
             _logger = logger;
             _context = db;
@@ -18,12 +18,30 @@ namespace BeeBuzz.Data.Repositories
         }
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation($"Add was called for {typeof(T).Name}");
+                _dbSet.Add(entity);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to add {typeof(T).Name}: {ex}");
+                throw;
+            }
         }
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation($"Delete was called for {typeof(T).Name}");
+                _dbSet.Remove(entity);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to delete {typeof(T).Name}: {ex}");
+                throw;
+            }
         }
 
         public IEnumerable<T> GetAll()
@@ -43,17 +61,44 @@ namespace BeeBuzz.Data.Repositories
 
         public T GetById(object id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation($"GetById was called for {typeof(T).Name} with id: {id}");
+                return _dbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get {typeof(T).Name} by id: {ex}");
+                return null;
+            }
         }
 
         public void SaveAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation("SaveAll was called");
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to save changes: {ex}");
+                throw;
+            }
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _logger.LogInformation($"Update was called for {typeof(T).Name}");
+                _dbSet.Update(entity);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to update {typeof(T).Name}: {ex}");
+                throw;
+            }
         }
     }
 }

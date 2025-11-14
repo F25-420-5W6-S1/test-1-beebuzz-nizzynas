@@ -11,7 +11,7 @@ namespace BeeBuzz.Data.Repositories.Helpers
         public RepositoryProvider(ApplicationDbContext dbContext, ILoggerFactory loggerFactory)
         {
             _repositoryFactories = new RepositoryFactories(loggerFactory);
-            Repositories = new Dictionary<Type, object>();       
+            Repositories = new Dictionary<Type, object>();
             DbContext = dbContext;
         }
 
